@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espejo con Cámara Frontal</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    #mirror {
+      width: 300px; /* Puedes ajustar el tamaño del espejo */
+      height: 400px;
+      background-image: url('images (3).png'); /* Aquí pon el path a tu imagen */
+      background-size: cover;
+      position: relative;
+      animation: fadeIn 2s ease-in-out; /* Animación para el fondo */
+    }
+
+    #camera {
+      position: absolute;
+      top: 20%; /* Mantén la posición inicial */
+      left: 15%; /* Mantén la posición inicial */
+      width: 71%; /* Mantén el ancho del video */
+      height: 72.7%; /* Mantén la altura del video */
+      border-radius: 70%; /* Mantén el redondeo */
+      overflow: hidden; /* Oculta el desbordamiento */
+      animation: fadeIn 2s ease-in-out 0.5s; /* Animación para el contenedor del video */
+    }
+
+    video {
+      width: 150%;
+      height: 150%;
+      object-fit: cover;
+      transform-origin: bottom; /* Fija el punto de transformación en la parte inferior */
+      transform: scaleY(1.0); /* Estira verticalmente hacia arriba */
+      animation: fadeIn 2s ease-in-out; /* Animación para el vídeo */
+    }
+  </style>
+</head>
+<body>
+<div class="message-container">
+
+
+
+  <div id="mirror">
+    <div id="camera">
+      <video id="video" autoplay></video>
+    </div>
+  </div>
+<div class="message-container">
+  <p>
+    La primera maravilla es estar contigo,<br>
+    la segunda, verte en el espejo,<br>
+    donde tu reflejo me recuerda a ti,<br>
+    y en cada mirada, te encuentro a ti.
+  </p>
+</div>
+
+  <script>
+    // Pedir acceso a la cámara frontal
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
+      .then(function(stream) {
+        var video = document.getElementById('video');
+        video.srcObject = stream;
+      })
+      .catch(function(err) {
+        console.log("Error al acceder a la cámara: " + err);
+      });
+  </script>
+
+</body>
+</html>
+
